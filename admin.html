@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bhatti Chemicals CMS — Admin (Demo)</title>
+<style>body{font-family:system-ui,Arial,sans-serif;margin:0;color:#222}header{background:#0f2a3d;color:#fff;padding:16px}.wrap{max-width:900px;margin:0 auto;padding:16px}.card{border:1px solid #ddd;border-radius:12px;padding:16px;margin:12px 0}button{background:#1a7a3d;color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer}input,select{width:100%;padding:10px;margin:6px 0;border:1px solid #bbb;border-radius:8px;box-sizing:border-box}.note{background:#fff3cd;padding:12px;border-radius:10px}</style></head>
+<body><header><div class="wrap">BHATTI CHEMICALS — B2B CMS <span style="color:#ccc">(Demo)</span></div></header>
+<div class="wrap"><div class="note"><b>Demo CMS only:</b> front-end demo, data in this browser (bh_* keys). No real server, login, payment or notification. Do NOT enter real buyer data. Production needs a backend/WordPress build on the relaunched domain.</div>
+<div class="card"><h2>Products</h2><div id="prods"></div><p><label>Product name <input id="pn"></label><label>Specification <input id="ps" placeholder="e.g. ZnO 99.9%, Industrial Grade, 25 KG Bags"></label><button onclick="addProd()">Add product (demo)</button></p></div>
+<div class="card"><h2>Quotation requests (from the demo form)</h2><div id="qs"></div></div>
+<div class="card"><h2>Before launch — must confirm with the business</h2><ul><li>Website suspension / hosting status with Nexus Technologies</li><li>WhatsApp number (profile phone vs button number differ)</li><li>Address: Kacha Khiali Road vs Sheikhupura Road, Gujranwala</li><li>Full product list, grades, packaging and price-on-quotation terms</li></ul></div>
+<p><a href="index.html">← Back to demo site</a></p></div>
+<script>
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}}
+function show(){var ps=load('bh_products',[{n:"Premium Zinc Oxide",s:"ZnO 99.9%, Industrial Grade, 25 KG Bags, Made in Pakistan"}]);document.getElementById('prods').innerHTML=ps.map(function(p,i){return '<p><b>'+p.n+'</b> — '+p.s+' <button onclick="delProd('+i+')">Delete</button></p>'}).join('');var qs=load('bh_quotations',[]);document.getElementById('qs').innerHTML=qs.length?qs.map(function(q){return '<p><b>'+q.company+'</b> ('+q.name+') · '+q.industry+' · '+q.qty+' bags · '+q.dest+' · '+(q.msg||'')+'</p>'}).join(''):'<p>No demo quotations yet.</p>'}
+function addProd(){var n=document.getElementById('pn').value.trim();if(!n)return;var p=load('bh_products',[]);p.push({n:n,s:document.getElementById('ps').value});localStorage.setItem('bh_products',JSON.stringify(p));document.getElementById('pn').value='';document.getElementById('ps').value='';show()}
+function delProd(i){var p=load('bh_products',[]);p.splice(i,1);localStorage.setItem('bh_products',JSON.stringify(p));show()}
+show();
+</script></body></html>
